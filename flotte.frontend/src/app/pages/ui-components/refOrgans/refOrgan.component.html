@@ -1,0 +1,45 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Liste des entites</mat-card-title>
+  </mat-card-header>
+
+  <dx-tree-list
+    id="veh"
+    [dataSource]="ListRefOrgane"
+    [rootValue]="0"
+    keyExpr="id"
+    parentIdExpr="prefOrgan"
+    [allowColumnResizing]="true"
+    [allowColumnReordering]="true"
+    [showRowLines]="true"
+    [showBorders]="true"
+    [columnAutoWidth]="true"
+    [expandedRowKeys]="[1, 2, 10]"
+    [(selectedRowKeys)]="selectedRowKeys"
+    (onSelectionChanged)="onSelectionChanged($event)"
+    [(filterValue)]="textFilter">
+    <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+    <dxo-scrolling mode="standard"></dxo-scrolling>
+    <dxo-selection mode="multiple" [recursive]="true"></dxo-selection>
+
+    <dxo-filter-panel [visible]="true"  ></dxo-filter-panel>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+    <dxo-column-chooser #columnChooser [enabled]="true" [allowSearch]="allowSearch" [mode]="columnChooserModes[0].key"></dxo-column-chooser>
+
+    <dxi-column dataField="registrationNumber" caption="registrationNumber" [width]="270"  [fixed]="true">
+
+    </dxi-column>
+    <dxi-column dataField="device.deviceID"  caption="device" [width]="200"></dxi-column>
+    <dxi-column dataField="device.status" caption="status" [width]="200"></dxi-column>
+    <dxi-column dataField="refOrgan.refOrganName" caption="Unité" [width]="250"></dxi-column>
+    <dxi-column
+      dataField="lastPosition.deviceTime"
+      caption="Date Position"
+      dataType="date"
+      [width]="200"
+    ></dxi-column>
+  </dx-tree-list>
+
+</mat-card>

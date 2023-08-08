@@ -1,0 +1,32 @@
+#eureka:
+#    client:
+#        fetchRegistry: true
+#        registerWithEureka: true
+#        serviceUrl:
+#            defaultZone: http://localhost:8761/eureka/
+#    instance:
+#        preferIpAddress: true
+#logging:
+#    level:
+#        org:
+#            springframework:
+#                data: debug
+server:
+    port: 8585
+spring:
+    application:
+        name: PERSON-SERVICE
+#    data:
+#        mongodb:
+#            database: Flotte
+#            host: 192.168.251.4
+#            port: 27017
+#    sleuth:
+#        sampler:
+#            probability: 1
+#    zipkin:
+#        base-url: http://localhost:9411
+#        sender:
+#            type: web
+#corsConfiguration:
+#    Origins: http://localhost:4200

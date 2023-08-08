@@ -1,0 +1,17 @@
+{
+	"ulid": "01H50C8HV1TAZ95GHNJ1EZ27B0",
+	"minTime": 1688990400000,
+	"maxTime": 1688997600000,
+	"stats": {
+		"numSamples": 563496,
+		"numSeries": 1844,
+		"numChunks": 5316
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01H50C8HV1TAZ95GHNJ1EZ27B0"
+		]
+	},
+	"version": 1
+}

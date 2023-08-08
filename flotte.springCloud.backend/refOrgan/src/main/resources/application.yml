@@ -1,0 +1,11 @@
+server:
+    port: 8686
+spring:
+    application:
+        name: REFORGAN-SERVICE
+keycloak:
+    realm: flotte-realm
+    resource: flotte-client
+    bearer-only: true
+    auth-server-url: http://localhost:9090/
+    ssl-required: none

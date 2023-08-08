@@ -1,0 +1,65 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Liste des Balise</mat-card-title>
+  </mat-card-header>
+
+  <dx-data-grid
+    id="gridContainer"
+    [dataSource]="dataSource"
+    [allowColumnReordering]="true"
+    [rowAlternationEnabled]="true"
+    [remoteOperations]="false"
+    [showBorders]="true"
+    (onContentReady)="contentReady($event)"
+
+  >
+    <dxo-paging
+      [pageSize]="pagingOptions.pageSize"
+      [pageIndex]="pagingOptions.currentPage"
+      (pageIndexChange)="loadDataIndexChange($event)"
+      (pageSizeChange)="loadDataSizeChange($event)">
+    </dxo-paging>
+    <dxo-pager
+      [showPageSizeSelector]="true"
+      [showInfo]="true"
+      [showNavigationButtons]="true"
+
+      [allowedPageSizes]="[10, 25, 50, 100]"
+    ></dxo-pager>
+    <dxo-search-panel
+      [visible]="true"
+      [highlightCaseSensitive]="true"
+    ></dxo-search-panel>
+    <dxo-editing
+      mode="row"
+      [allowAdding]="true"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+    >
+    </dxo-editing>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+    <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+    <dxo-filter-row [visible]="true" [applyFilter]="'contains'"></dxo-filter-row>
+    <dxi-column dataField="deviceID"  alignment="center" dataType="string" caption="Device ID" title="Device ID" ></dxi-column>
+    <dxi-column dataField="state" dataType="string" caption="State"   alignment="center"></dxi-column>
+    <dxi-column
+      dataField="imei"
+      caption="Imei"
+      dataType="string"
+      alignment="center"
+
+    ></dxi-column>
+    <dxi-column
+      dataField="active"
+      caption="active"
+      dataType="boolean"
+      alignment="center"
+    ></dxi-column>
+    <dxi-column dataField="refOrgan.refOrganName" dataType="string" caption="Entité" alignment="center"></dxi-column>
+    <dxi-column dataField="phoneNumber" dataType="string" caption="Phone Number" alignment="center"></dxi-column>
+    <dxi-column dataField="lastPosition" dataType="string" caption="Last Position" alignment="center"></dxi-column>
+
+  </dx-data-grid>
+
+</mat-card>

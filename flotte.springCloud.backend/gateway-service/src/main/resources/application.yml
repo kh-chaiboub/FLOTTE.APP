@@ -1,0 +1,57 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: GATEWAY-SERVICE
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: DEVICE-SERVICE
+          uri: http://localhost:8282/
+          predicates:
+            - Path=/api/devices/**
+        - id: POSITION-SERVICE
+          uri: http://localhost:8383/
+          predicates:
+            - Path=/api/last-positions/**
+        - id: APILOCAL
+          uri: http://localhost:2222
+          predicates:
+            - Path=/lastposition/**
+        - id: VEHICULE-SERVICE
+          uri: http://localhost:8484/
+          predicates:
+            - Path=/api/vehicles/**
+            - Path=api/drivers/**
+            - Path=api/vehicle-types/**
+        - id: USER-WS
+          uri: lb://user-ws
+          predicates:
+            - Path=/login
+            - Method=POST
+
+
+
+
+
+#eureka:
+#  client:
+#    fetchRegistry: true
+#    registerWithEureka: true
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+#  instance:
+#    preferIpAddress: true
+

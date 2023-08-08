@@ -1,0 +1,205 @@
+<header id="page-topbar">
+  <div class="navbar-header">
+    <div class="dropdown" style="position: absolute;left: 493px;top: -11px; top: 98px;z-index: 1000;right: 75px;">
+      <button type="button" class="btn header-item waves-effect btn-arrange" id="page-header-table-dropdown" style="position: absolute;z-index: 100;right:-48px"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+        <img  (click)="toggleArrange()"src="./assets/icons/map-icon/layout.png" style="width: 28px;height: 28px;">
+      </button>
+      <div class="dropdown-item dropdown-arrange" *ngIf="isHidden === true" id="arrangeDiv">
+
+        <div class="dataTables_length" id="tab-size">
+          <label class="d-inline-flex align-items-center">Tab size
+            <!--                  TODO PAGESIZE-->
+            <select aria-controls="size-table" name="tabSize" class="custom-select custom-select-sm form-control form-control-sm mx-2" >
+              <option [ngValue]="25">25</option>
+              <option [ngValue]="50">50</option>
+              <option [ngValue]="75">75</option>
+            </select> %
+          </label>
+          <button (click)='showHistoricalPositions(device,"2022-03-08T00:10","2022-03-11T15:10")'>Show Historical Positions</button>
+        </div>
+
+        <div class="menuPanelItemLi"  (click)="arrange()"style="padding-top: 10px;" title="Arrrange Layout">
+          <img id="arrLayout" class="menuButton" src="./assets/icons/map-icon/layout.png" title="Arrange Layout" alt="Arrange Layout">
+          <label style="cursor:pointer" for="arrLayout">Arrange Layout</label>
+        </div>
+        <div class="menuDivItem" style="width: 160px">
+            <span *ngFor="let item of listTable" class="elementOpt">
+              <input type="checkbox" class="NormalFloating " [(ngModel)]="item.checked" (change)="changeCheckbox(item)">&nbsp;&nbsp;
+              <img class="menuSearchItem" height="16px" width="16px" [src]="item.icon"
+                   style="display: inline-block; vertical-align: middle;">&nbsp;
+              <label style="cursor:pointer; display: inline-block; vertical-align: middle; margin-bottom: 5px;">
+                {{ item.name }}
+              </label><br>
+            </span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="d-flex align-items-center">
+
+      <div class="dropdown d-inline-block" style="position: absolute;right: 260px;top: -9px;">
+        <button type="button" class="btn header-item menu-icon waves-effect">
+          <i class="ri-menu-line"></i>
+        </button>
+        <div class="dropdown-menuu">
+
+        </div>
+      </div>
+
+      <div class="dropdown d-none d-inline-block ml-1" style="position: absolute;right: 220px;top: -11px;">
+        <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
+          <i class="ri-fullscreen-line"></i>
+        </button>
+      </div>
+
+      <div class="dropdown d-inline-block" style="position: absolute;right: 180px;top: -11px;">
+        <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown">
+          <i class="ri-notification-3-line"></i>
+          <span class="noti-dot"></span>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<div id="map" style="height: 87vh;width:100%"></div>
+
+<div [hidden]="dialogHiddenDate" #divHistoDate class="example-box example-box2" (click)="clickHisto()">
+  <!--    <span class="closefilter" (click)="clossDialogDate()" style="cursor: pointer">🗙</span>-->
+  <div class="handle">
+    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+      <path d="M0 0h24v24H0z" fill="none"></path>
+    </svg>
+  </div>
+
+</div>
+<div class="dropdown d-none d-inline-block ml-1" style="position: absolute;right: 220px;top: -11px;">
+  <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
+    <i class="ri-fullscreen-line"></i>
+  </button>
+</div>
+<!--<div id="1" #divVl  (click)="closeAll()" class="div-vehicule-box div-vehicule-box2" (click)="clickVehicule()">
+  <div class="handle">
+    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+      <path d="M0 0h24v24H0z" fill="none"></path>
+    </svg>
+  </div>
+  <button class="btn closefilter btn-outline-danger" style="float: right;right: 14px;" (click)="closeDialogFilter(divVl)">🗙</button>
+  <div class="modal-large-filter">
+    <dx-tree-list
+      id="veh"
+      [dataSource]="ListRefOrgane"
+      [rootValue]="0"
+      keyExpr="id"
+      parentIdExpr="prefOrgan"
+      [allowColumnResizing]="true"
+      [allowColumnReordering]="true"
+      [showRowLines]="true"
+      [showBorders]="true"
+      [columnAutoWidth]="true"
+      [expandedRowKeys]="[1, 2, 10]"
+      [(selectedRowKeys)]="selectedRowKeys"
+      (onSelectionChanged)="onSelectionChanged($event)"
+      [(filterValue)]="textFilter">
+      <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+      <dxo-scrolling mode="standard"></dxo-scrolling>
+      <dxo-selection mode="multiple" [recursive]="true"></dxo-selection>
+
+      <dxo-filter-panel [visible]="true"  ></dxo-filter-panel>
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+      <dxo-column-chooser #columnChooser [enabled]="true" [allowSearch]="allowSearch" [mode]="columnChooserModes[0].key"></dxo-column-chooser>
+
+      <dxi-column dataField="registrationNumber" caption="registrationNumber" [width]="270"  [fixed]="true">
+
+      </dxi-column>
+      <dxi-column dataField="device.deviceID"  caption="device" [width]="200"></dxi-column>
+      <dxi-column dataField="device.status" caption="status" [width]="200"></dxi-column>
+      <dxi-column dataField="refOrgan.refOrganName" caption="Unité" [width]="250"></dxi-column>
+      <dxi-column
+        dataField="lastPosition.deviceTime"
+        caption="Date Position"
+        dataType="date"
+        [width]="200"
+      ></dxi-column>
+    </dx-tree-list>
+  </div>
+</div>-->
+
+<div id="3" #divIncident  (click)="closeAll()"  class="div-vehicule-box div-incident" (click)="clickIncident()">
+  <div class="handle">
+    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+      <path d="M0 0h24v24H0z" fill="none"></path>
+    </svg>
+  </div>
+  <button class="btn closefilter btn-outline-danger" (click)="closeDialogFilter(divIncident)">🗙</button>
+  <div class="modal-large-filter">
+    <app-tree-vehicule-tab-map #vlFiltre (vehiculeChanged)="getVehiculeFiltre($event)" (filterText)="getFiltreText($event)" [textFilter]="filtreText"></app-tree-vehicule-tab-map>
+  </div>
+</div>
+
+<div id="4" #divAlert class="div-vehicule-box div-alert"  (click)="closeAll()" (click)="clickAlert()">
+  <div class="handle">
+    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+      <path d="M0 0h24v24H0z" fill="none"></path>
+    </svg>
+  </div>
+  <button class="btn closefilter btn-outline-danger" style="float: right;right: 14px;" (click)="closeDialogFilter(divAlert)">🗙</button>
+  <div class="modal-large-filter">
+    <app-tree-vehicule-map (vehiculeChanged)="getVehiculeFiltre($event)" (filterText)="getFiltreText($event)" [textFilter]="filtreText"></app-tree-vehicule-map>
+  </div>
+</div>
+
+<div id="2" #divUnite (click)="closeAll()" class="div-vehicule-box div-unite" (click)="clickUnite()">
+  <div class="handle">
+    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+      <path d="M0 0h24v24H0z" fill="none"></path>
+    </svg>
+  </div>
+  <button class="btn closefilter btn-outline-danger" (click)="closeDialogFilter(divUnite)">🗙</button>
+  <div class="modal-large-filter">
+    <app-tree-vehicule-tab-map #vlFiltre (vehiculeChanged)="getVehiculeFiltre($event)" (filterText)="getFiltreText($event)" [textFilter]="filtreText"></app-tree-vehicule-tab-map>
+  </div>
+</div>
+<div id="mySidenav" class="sidenav">
+  <div>
+    <a id="Filter" (click)="toggleSearchBox()" ><img  src="assets/icons/map-icon/filter.png"  style="height: 20px; width: 20px;margin-left: 1px;"/></a>
+    <div class="search-box" [hidden]="!isSearchBoxVisible" >
+      <input type="text" class="search-txt" placeholder="Search..." (keyup)="onSearchInputChange($event)">
+      <div class="search-results" *ngIf="searchResults.length > 0">
+        <ul>
+          <li *ngFor="let result of searchResults" (click)="onSearchResultSelected(result)">{{ result }}</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div>
+    <a id="Recherche-avancee" ><img src="assets/icons/map-icon/favorite.png" style="height: 30px; width: 30px;margin-left: -5px"/></a>
+  </div>
+  <div id="ruler" (click)="handleClickMeasurement()" >
+
+    <a id="regle"><img src="assets/icons/map-icon/ruler.png" alt="" style="height: 30px; width: 30px;margin-left: -5px"/></a>
+    <span style="background: #fff; position: absolute; width: 200px;left: 30px ; height: 30px ; top: 205px;display: none" id="length"   ></span>
+  </div>
+
+  <div class="search-box">
+    <input type="text" class="search-txt" placeholder="Chercher .  .  ." >
+    <a class="search-btn" ><img src="assets/icons/map-icon/magnifier.png" style="height: 20px; width: 20px;"/></a>
+    <div >
+    </div>
+  </div>
+</div>
+

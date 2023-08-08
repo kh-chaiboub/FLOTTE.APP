@@ -1,0 +1,59 @@
+<!--<div style="display: flex;margin-bottom: 11px;">-->
+<!--&lt;!&ndash;  <button class="btn btn-outline-primary" (click)="onChange()">Appliquer Filter</button>&ndash;&gt;-->
+<!--</div>-->
+
+<div class="d-flex justify-content-center" style="margin-bottom: 10px">
+  <h5 class="modal-title mr-auto">Filter Par Véhicule</h5>
+  <button class="btn btn-outline-primary ml-auto" (click)="onChange()" style="margin-right: 54px;">Appliquer Filter</button>
+</div>
+<!--<ngx-spinner>
+</ngx-spinner>-->
+
+<dx-tree-list
+  id="veh"
+  [dataSource]="listVehicules"
+  [rootValue]="0"
+  keyExpr="id"
+  parentIdExpr="prefOrgan"
+  [allowColumnResizing]="true"
+  [allowColumnReordering]="true"
+  [showRowLines]="true"
+  [showBorders]="true"
+  [columnAutoWidth]="true"
+  [expandedRowKeys]="[1, 2, 10]"
+  [(selectedRowKeys)]="selectedRowKeys"
+  (onSelectionChanged)="onSelectionChanged($event)"
+  [(filterValue)]="textFilter">
+  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+  <dxo-scrolling mode="standard"></dxo-scrolling>
+  <dxo-selection mode="multiple" [recursive]="true"></dxo-selection>
+<!--  <dxo-paging [enabled]="true" [pageSize]="5"> </dxo-paging>-->
+<!--  <dxo-pager-->
+<!--    [showPageSizeSelector]="true"-->
+<!--    [allowedPageSizes]="[5, 10, 20]"-->
+<!--    [showInfo]="true"-->
+<!--  >-->
+<!--  </dxo-pager>-->
+
+  <!--  [filterEnabled]="true" [texts]="{createFilter:'[registrationNumber] Contains \'G18\'' , filterEnabledHint: 'Filtrer'}"-->
+  <!--  <dxo-header-filter [visible]="true"></dxo-header-filter>-->
+  <dxo-filter-panel [visible]="true"  ></dxo-filter-panel>
+  <dxo-search-panel [visible]="true"></dxo-search-panel>
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+  <dxo-column-chooser #columnChooser [enabled]="true" [allowSearch]="allowSearch" [mode]="columnChooserModes[0].key"></dxo-column-chooser>
+
+  <dxi-column dataField="registrationNumber" caption="registrationNumber" [width]="270"  [fixed]="true">
+
+  </dxi-column>
+  <dxi-column dataField="device.deviceID"  caption="device" [width]="200"></dxi-column>
+  <dxi-column dataField="device.status" caption="status" [width]="200"></dxi-column>
+  <dxi-column dataField="refOrgan.refOrganName" caption="Unité" [width]="250"></dxi-column>
+  <dxi-column
+    dataField="lastPosition.deviceTime"
+    caption="Date Position"
+    dataType="date"
+    [width]="200"
+  ></dxi-column>
+</dx-tree-list>
+

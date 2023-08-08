@@ -1,0 +1,33 @@
+<div style="display: flex;    margin-bottom: 45px;">
+</div>
+<dx-tree-list
+  id="veh"
+  style="max-width: max-content"
+  [columnAutoWidth]="true"
+  [dataSource]="listVehicules"
+  [rootValue]="0"
+  keyExpr="id"
+  parentIdExpr="prefOrgan"
+  [allowColumnResizing]="true"
+  [allowColumnReordering]="true"
+  [showRowLines]="true"
+  [showBorders]="true"
+  [columnAutoWidth]="true"
+  [expandedRowKeys]="[1, 2, 10]"
+  [(selectedRowKeys)]="selectedRowKeys"
+  (onSelectionChanged)="onSelectionChanged($event)"
+  [(filterValue)]="textFilter">
+  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+  <dxo-scrolling mode="standard"></dxo-scrolling>
+  <dxo-selection mode="multiple" [recursive]="true"></dxo-selection>
+  <dxo-filter-panel [visible]="true"  ></dxo-filter-panel>
+  <dxo-search-panel [visible]="true"></dxo-search-panel>
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-column-chooser #columnChooser [enabled]="true" [allowSearch]="allowSearch" [mode]="columnChooserModes[0].key"></dxo-column-chooser>
+  <dxi-column dataField="registrationNumber" caption="registrationNumber" [width]="150" [fixed]="true"></dxi-column>
+  <dxi-column dataField="device.deviceID" caption="device" [width]="100"></dxi-column>
+  <dxi-column dataField="device.status" caption="status" [width]="100"></dxi-column>
+  <dxi-column dataField="refOrgan.refOrganName" [width]="150"></dxi-column>
+  <dxi-column dataField="lastPosition.deviceTime" caption="Date Position" dataType="date" [width]="100" ></dxi-column>
+</dx-tree-list>
+

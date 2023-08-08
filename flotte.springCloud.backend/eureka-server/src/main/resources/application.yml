@@ -1,0 +1,13 @@
+#server.port=8761
+#eureka.client.fetch-registry=false
+#eureka.client.register-with-eureka=false
+#eureka.server.enable-self-preservation=false
+
+server:
+  port: 8761
+eureka:
+  client:
+    registerWithEureka: false # Ne pas s'enregistrer aupr�s du service Eureka.
+    fetchRegistry: false # Ne cache pas les informations de registre localement.
+  server:
+    waitTimeInMsWhenSyncEmpty: 5 # Temps initial d'attente avant que le serveur accepte les demandes

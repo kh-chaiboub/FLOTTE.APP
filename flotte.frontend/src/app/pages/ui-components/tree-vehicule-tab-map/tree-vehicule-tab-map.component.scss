@@ -1,0 +1,65 @@
+.table-grid-tree-container {
+  position: absolute;
+  z-index: 5;
+  pointer-events: auto;
+}
+.checkb {
+  display: none;
+}
+.mah {
+  position: fixed;
+  margin-left: 50%;
+  cursor: pointer;
+  pointer-events:auto;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 33px;
+  padding: 5px;
+  background-color: white;
+  bottom: 3px;
+  height: 31px;
+}
+.line-r {
+  display: inline-block;
+  width: 3px;
+  height: 19px;
+  margin: 0 2px;
+  background-color: black;
+  transition: 300ms ease-in-out transform, 300ms ease-in-out opacity;
+}
+input:checked ~ label .mah .line-one {
+  transform: translateY(0%) translateX(250%) rotate(45deg);
+}
+input:checked ~ label .mah .line-two {
+  transform: translateY(0%);
+  opacity: 0;
+}
+input:checked ~ label .mah .line-three {
+  transform: translateY(0%) translateX(-220%) rotate(-45deg);
+}
+.rech-av {
+  position: fixed;
+  background-color: red;
+  transform: translateY(150%);
+  transition: 700ms ease-in-out transform;
+  bottom: 8px;
+  height: 120px;
+  pointer-events: none;
+  margin-left: 35%;
+  width: 300px;
+}
+input:checked ~ label .rech-av {
+  transform: translateY(0);
+  transition: 700ms ease transform;
+}
+input:checked ~ label .mah {
+  transition: 500ms ease-in-out ;
+  bottom: 130px;
+}
+input:not(:checked) ~ label .mah {
+  transition: 500ms ease-in-out ;
+}
+input:not(:checked) ~ label .rech-av {
+  transform: translateY(150%);
+  transition: 800ms ease-out transform;
+}
